@@ -20,26 +20,6 @@ class PalmAnalyzer:
         ) as hands:
             results = hands.process(rgb_image)
 
-        print("\n========== MEDIAPIPE HANDS RAW OUTPUT ==========", flush=True)
-        print("results:", results, flush=True)
-        print("multi_hand_landmarks:", results.multi_hand_landmarks, flush=True)
-        print("multi_handedness:", results.multi_handedness, flush=True)
-
-        if results.multi_hand_landmarks:
-            for hand_index, hand_landmarks in enumerate(results.multi_hand_landmarks):
-                print(f"\n--- Hand {hand_index} landmarks ---", flush=True)
-
-                for i, landmark in enumerate(hand_landmarks.landmark):
-                    print(
-                        f"Landmark {i}: "
-                        f"x={landmark.x:.4f}, "
-                        f"y={landmark.y:.4f}, "
-                        f"z={landmark.z:.4f}",
-                        flush=True,
-                    )
-
-        print("===============================================\n", flush=True)
-
         if not results.multi_hand_landmarks:
             raise HTTPException(
                 status_code=422,
